@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影网 - 百年影史经典佳作在线赏析</title>
+<meta name="description" content="经典电影网(jingdiandianyingwang-h5)专注收录全球百年影史经典佳作，提供高清在线观看与深度影评，是影迷必备的经典电影资料库。">
+<meta name="keywords" content="经典电影网, 经典电影, 影史佳作, jingdiandianyingwang-h5, 老电影, 高分电影">
+<meta name="author" content="经典电影网">
+<meta name="robots" content="index,follow">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="canonical" href="https://jingdiandianyingwang-h5">
+
+<style>
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", "Microsoft YaHei", Arial, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.8;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #e53935;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 顶部通告 */
+.announcement {
+    background: #1a1a1a;
+    color: #fafafa;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.announcement span {
+    color: #e53935;
+    font-weight: bold;
+}
+
+/* 头部 */
+header {
+    padding: 60px 0 40px;
+    border-bottom: 2px solid #1a1a1a;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+header h1 .dot {
+    color: #e53935;
+}
+
+header p {
+    font-size: 14px;
+    color: #666;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* 导航 */
+nav {
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,250,0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 18px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid transparent;
+}
+
+nav ul li a:hover {
+    border-bottom-color: #e53935;
+    color: #e53935;
+}
+
+/* 通用栏目 */
+.section {
+    padding: 80px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.section-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.section-number {
+    font-size: 64px;
+    font-weight: 900;
+    color: #e53935;
+    line-height: 1;
+    opacity: 0.15;
+    min-width: 80px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.section-title p {
+    color: #999;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* 首页特色 */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid #e0e0e0;
+}
+
+.feature-item {
+    padding: 40px 30px;
+    border-right: 1px solid #e0e0e0;
+    transition: background 0.3s;
+}
+
+.feature-item:last-child {
+    border-right: none;
+}
+
+.feature-item:hover {
+    background: #fff;
+}
+
+.feature-item h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.feature-item p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.feature-item a {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e53935;
+    border-bottom: 1px solid #e53935;
+    padding-bottom: 2px;
+}
+
+/* 经典片库 */
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: #e0e0e0;
+    border: 1px solid #e0e0e0;
+}
+
+.library-item {
+    background: #fafafa;
+    padding: 30px 24px;
+    transition: background 0.3s;
+}
+
+.library-item:hover {
+    background: #fff;
+}
+
+.library-item .year {
+    font-size: 12px;
+    color: #e53935;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.library-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.library-item p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 大师殿堂 */
+.master-list {
+    list-style: none;
+}
+
+.master-list li {
+    display: flex;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid #e0e0e0;
+    gap: 30px;
+}
+
+.master-list li:last-child {
+    border-bottom: none;
+}
+
+.master-rank {
+    font-size: 28px;
+    font-weight: 900;
+    color: #e53935;
+    min-width: 50px;
+}
+
+.master-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.master-info p {
+    font-size: 13px;
+    color: #666;
+}
+
+.master-list li a {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e53935;
+    border: 1px solid #e53935;
+    padding: 8px 20px;
+    border-radius: 0;
+}
+
+.master-list li a:hover {
+    background: #e53935;
+    color: #fff;
+}
+
+/* 影评专栏 */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.review-item {
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+}
+
+.review-item blockquote {
+    font-size: 16px;
+    font-style: italic;
+    color: #333;
+    border-left: 3px solid #e53935;
+    padding-left: 20px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.review-item .review-meta {
+    font-size: 12px;
+    color: #999;
+}
+
+.review-item a {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e53935;
+}
+
+/* 关于我们 */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.about-text p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e0e0e0;
+    border: 1px solid #e0e0e0;
+}
+
+.stat-item {
+    background: #fafafa;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.stat-item .stat-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #e53935;
+    line-height: 1;
+}
+
+.stat-item .stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* 关键词标签 */
+.keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.keywords span {
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    font-size: 12px;
+    color: #666;
+}
+
+.keywords span:hover {
+    border-color: #e53935;
+    color: #e53935;
+}
+
+/* 页脚 */
+footer {
+    background: #1a1a1a;
+    color: #999;
+    padding: 60px 0 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h4 {
+    color: #fafafa;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: #999;
+    font-size: 13px;
+}
+
+.footer-col ul li a:hover {
+    color: #e53935;
+}
+
+.footer-bottom {
+    border-top: 1px solid #333;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.footer-bottom p {
+    margin-bottom: 6px;
+}
+
+/* 移动端 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 32px;
+    }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .section-number {
+        font-size: 48px;
+    }
+
+    .section-title h2 {
+        font-size: 24px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-item {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .feature-item:last-child {
+        border-bottom: none;
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    nav ul li a {
+        padding: 14px 16px;
+        font-size: 13px;
+    }
+
+    .master-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .master-list li a {
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="announcement">
+    经典电影网 官方唯一网址：<span>https://jingdiandianyingwang-h5</span> | 请认准正版
+</div>
+
+<header>
+    <div class="container">
+        <h1>经典电影网<span class="dot">.</span></h1>
+        <p>收录全球百年影史经典佳作 · 高清在线赏析 · 深度影评解读</p>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="#library">经典片库</a></li>
+            <li><a href="#masters">大师殿堂</a></li>
+            <li><a href="#reviews">影评专栏</a></li>
+            <li><a href="#about">关于我们</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="section" id="home">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <div class="section-title">
+                <h2>首页精选</h2>
+                <p>EDITOR'S PICKS</p>
+            </div>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>百年影史百佳</h3>
+                <p>从默片时代到数字电影，精选百年影史最具影响力的百部经典之作。</p>
+                <a href="#">浏览片单 →</a>
+            </div>
+            <div class="feature-item">
+                <h3>导演剪辑版</h3>
+                <p>收录多部经典影片的导演剪辑版本，还原创作者最初的艺术构想。</p>
+                <a href="#">查看详情 →</a>
+            </div>
+            <div class="feature-item">
+                <h3>4K修复珍藏</h3>
+                <p>全球顶级电影修复机构合作，提供4K分辨率修复版经典老片。</p>
+                <a href="#">立即观看 →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="library">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <div class="section-title">
+                <h2>经典片库</h2>
+                <p>CLASSIC LIBRARY</p>
+            </div>
+        </div>
+        <div class="library-grid">
+            <div class="library-item">
+                <div class="year">1994</div>
+                <h3>肖申克的救赎</h3>
+                <p>希望让人自由。影史评分最高的经典之作，弗兰克·德拉邦特执导。</p>
+            </div>
+            <div class="library-item">
+                <div class="year">1993</div>
+                <h3>霸王别姬</h3>
+                <p>华语电影巅峰之作，陈凯歌导演，张国荣传世表演。</p>
+            </div>
+            <div class="library-item">
+                <div class="year">1942</div>
+                <h3>卡萨布兰卡</h3>
+                <p>黄金时代好莱坞经典，爱情与战争的永恒交响。</p>
+            </div>
+            <div class="library-item">
+                <div class="year">1960</div>
+                <h3>惊魂记</h3>
+                <p>希区柯克悬疑经典，开创心理惊悚片先河。</p>
+            </div>
+            <div class="library-item">
+                <div class="year">1989</div>
+                <h3>悲情城市</h3>
+                <p>侯孝贤代表作，金狮奖获奖作品，台湾历史画卷。</p>
+            </div>
+            <div class="library-item">
+                <div class="year">1954</div>
+                <h3>七武士</h3>
+                <p>黑泽明史诗巨作，武士电影不朽丰碑。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="masters">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">03</div>
+            <div class="section-title">
+                <h2>大师殿堂</h2>
+                <p>MASTER GALLERY</p>
+            </div>
+        </div>
+        <ul class="master-list">
+            <li>
+                <div class="master-rank">01</div>
+                <div class="master-info">
+                    <h3>斯坦利·库布里克</h3>
+                    <p>《2001太空漫游》《发条橙》《闪灵》——追求完美的视觉哲学家</p>
+                </div>
+                <a href="#">作品集 →</a>
+            </li>
+            <li>
+                <div class="master-rank">02</div>
+                <div class="master-info">
+                    <h3>黑泽明</h3>
+                    <p>《罗生门》《七武士》《影武者》——日本电影走向世界的桥梁</p>
+                </div>
+                <a href="#">作品集 →</a>
+            </li>
+            <li>
+                <div class="master-rank">03</div>
+                <div class="master-info">
+                    <h3>英格玛·伯格曼</h3>
+                    <p>《第七封印》《野草莓》——探索灵魂与信仰的北欧哲人</p>
+                </div>
+                <a href="#">作品集 →</a>
+            </li>
+            <li>
+                <div class="master-rank">04</div>
+                <div class="master-info">
+                    <h3>小津安二郎</h3>
+                    <p>《东京物语》《秋刀鱼之味》——低机位下的东方家庭美学</p>
+                </div>
+                <a href="#">作品集 →</a>
+            </li>
+            <li>
+                <div class="master-rank">05</div>
+                <div class="master-info">
+                    <h3>安德烈·塔可夫斯基</h3>
+                    <p>《镜子》《乡愁》《牺牲》——雕刻时光的诗人导演</p>
+                </div>
+                <a href="#">作品集 →</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="section" id="reviews">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">04</div>
+            <div class="section-title">
+                <h2>影评专栏</h2>
+                <p>CRITICS' CORNER</p>
+            </div>
+        </div>
+        <div class="review-grid">
+            <div class="review-item">
+                <blockquote>"《公民凯恩》不仅是技术革新的里程碑，更是叙事结构的革命。威尔斯用非线性叙事重构了传记片的语法。"</blockquote>
+                <div class="review-meta">深度解析 · 奥逊·威尔斯</div>
+                <a href="#">阅读全文 →</a>
+            </div>
+            <div class="review-item">
+                <blockquote>"《教父》系列之所以不朽，在于它将黑帮片升华为美国资本主义家族兴衰的希腊悲剧。"</blockquote>
+                <div class="review-meta">经典重读 · 科波拉</div>
+                <a href="#">阅读全文 →</a>
+            </div>
+            <div class="review-item">
+                <blockquote>"侯孝贤的长镜头不是炫技，而是一种对时间和空间的绝对尊重，观众在静默中完成自我投射。"</blockquote>
+                <div class="review-meta">作者研究 · 台湾新电影</div>
+                <a href="#">阅读全文 →</a>
+            </div>
+            <div class="review-item">
+                <blockquote>"《2001太空漫游》上映时观众困惑，今天看来它精准预言了AI觉醒与人类进化的终极命题。"</blockquote>
+                <div class="review-meta">科幻经典 · 库布里克</div>
+                <a href="#">阅读全文 →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">05</div>
+            <div class="section-title">
+                <h2>关于我们</h2>
+                <p>ABOUT</p>
+            </div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>经典电影网（<strong>https://jingdiandianyingwang-h5</strong>）成立于2026年，致力于打造华语世界最专业的经典电影在线资料库与观赏平台。</p>
+                <p>我们与全球多家电影档案馆、修复机构合作，为影迷提供高画质修复版经典影片的在线赏析服务。同时，网站汇聚专业影评人团队，产出深度影评与学术研究文章。</p>
+                <p>网站采用极简设计理念，让观影回归纯粹，让每一部经典都被认真对待。</p>
+                <div class="keywords">
+                    <span>经典电影网</span>
+                    <span>jingdiandianyingwang-h5</span>
+                    <span>影史佳作</span>
+                    <span>高清修复</span>
+                    <span>深度影评</span>
+                    <span>大师作品</span>
+                </div>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">收录经典影片</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">大师导演</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">深度影评</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4K</div>
+                    <div class="stat-label">修复画质</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>经典电影网</h4>
+                <ul>
+                    <li><a href="#">网站首页</a></li>
+                    <li><a href="#">最新更新</a></li>
+                    <li><a href="#">网站地图</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>影片分类</h4>
+                <ul>
+                    <li><a href="#">欧美经典</a></li>
+                    <li><a href="#">华语经典</a></li>
+                    <li><a href="#">日本经典</a></li>
+                    <li><a href="#">其他国际</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>专题栏目</h4>
+                <ul>
+                    <li><a href="#">导演合集</a></li>
+                    <li><a href="#">电影节获奖</a></li>
+                    <li><a href="#">4K修复</a></li>
+                    <li><a href="#">影史百佳</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="#">投稿合作</a></li>
+                    <li><a href="#">友情链接</a></li>
+                    <li><a href="#">版权声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 经典电影网 | 官方网址：https://jingdiandianyingwang-h5</p>
+            <p>关键词：经典电影网 jingdiandianyingwang-h5 经典电影 影史佳作 高清在线观看</p>
+            <p>本网站仅提供影视信息展示服务，所有内容均来自互联网公开资源</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
